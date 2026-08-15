@@ -50,7 +50,7 @@ Supabase CLI is linked to a remote project (`supabase/config.toml`, project_id `
   - `lib/utils.ts` exports `hasEnvVars`, used throughout to decide whether to render Supabase UI
     or an `EnvVarWarning`/tutorial fallback (this gate is temporary/tutorial scaffolding).
 - **Route structure**: `app/auth/*` (login, sign-up, forgot/update password, error, email confirm
-  route handler) is public; `app/protected/*` is gated by the proxy redirect above.
+  route handler) is public; `app/dashboard/*` is gated by the proxy redirect above.
 - **UI components** follow shadcn/ui conventions: primitives in `components/ui/` (generated via
   shadcn, style "new-york", see `components.json`), composed feature components at the top level
   of `components/`, and starter-kit tutorial-only components under `components/tutorial/`. Use the
