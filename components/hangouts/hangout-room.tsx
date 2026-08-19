@@ -8,6 +8,7 @@ import { createClient } from "@/lib/supabase/client";
 import type { PlaceAutocompleteValue } from "@/components/place-autocomplete-field";
 import type {
   ActionResult,
+  DisplayItinerary,
   HangoutStop,
   PlaceInfo,
 } from "@/components/hangouts/types";
@@ -35,11 +36,13 @@ export function HangoutRoom({
   profileId,
   isOrganizer,
   initialStops,
+  initialItinerary,
 }: {
   hangoutId: string;
   profileId: string;
   isOrganizer: boolean;
   initialStops: HangoutStop[];
+  initialItinerary: DisplayItinerary | null;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -442,7 +445,14 @@ export function HangoutRoom({
           onRemoveFromFinalists={removeFromFinalists}
         />
       )}
-      {activeTab === "plan" && <PlanTab />}
+      {activeTab === "plan" && (
+        <PlanTab
+          hangoutId={hangoutId}
+          isOrganizer={isOrganizer}
+          finalistsCount={finalists.length}
+          initialItinerary={initialItinerary}
+        />
+      )}
     </div>
   );
 }

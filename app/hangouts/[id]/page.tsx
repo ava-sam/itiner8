@@ -4,10 +4,50 @@ import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Badge } from "@/components/ui/badge";
 import { HangoutRoom } from "@/components/hangouts/hangout-room";
-import type { HangoutStop } from "@/components/hangouts/types";
+import type { Conflict } from "@/lib/optimizer/types";
+import type { DisplayItinerary, HangoutStop } from "@/components/hangouts/types";
 
 const STOP_SELECT =
   "id, hangout_id, place_id, suggested_by, status, visit_duration_minutes, created_at, place:places(id, name, formatted_address, lat, lng), votes(id, voter_id)";
+
+const ITINERARY_SELECT = "id, stops, conflicts, generated_at";
+
+interface StoredItineraryStopRow {
+  placeId: string;
+  name: string;
+  arrival: string;
+  visitStart: string;
+  visitEnd: string;
+  waitMinutes: number;
+  travelMinutesFromPrevious: number;
+  isReservation: boolean;
+  isRequired: boolean;
+  fitsOpeningHours: boolean;
+}
+
+interface StoredItineraryRow {
+  id: string;
+  generated_at: string;
+  stops: StoredItineraryStopRow[];
+  conflicts: Conflict[];
+}
+
+// itineraries.stops is jsonb — Date fields round-trip as ISO strings, so
+// they need parsing back before this reaches PlanTab, which works with
+// real Date objects throughout (see components/hangouts/types.ts).
+function parseStoredItinerary(row: StoredItineraryRow): DisplayItinerary {
+  return {
+    id: row.id,
+    generatedAt: new Date(row.generated_at),
+    conflicts: row.conflicts,
+    stops: row.stops.map((s) => ({
+      ...s,
+      arrival: new Date(s.arrival),
+      visitStart: new Date(s.visitStart),
+      visitEnd: new Date(s.visitEnd),
+    })),
+  };
+}
 
 async function HangoutRoomContent({
   params,
@@ -53,6 +93,16 @@ async function HangoutRoomContent({
     .in("status", ["candidate", "selected"])
     .order("created_at", { ascending: true });
 
+  // itineraries keeps every generation, never overwriting — the "current"
+  // plan is whichever row is most recent.
+  const { data: itineraryRow } = await supabase
+    .from("itineraries")
+    .select(ITINERARY_SELECT)
+    .eq("hangout_id", id)
+    .order("generated_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
   return (
     <div className="flex-1 w-full flex flex-col gap-6 max-w-4xl">
       <div className="flex items-center gap-3">
@@ -66,6 +116,9 @@ async function HangoutRoomContent({
         profileId={claims.sub}
         isOrganizer={memberRow.role === "organizer"}
         initialStops={(stopsData ?? []) as unknown as HangoutStop[]}
+        initialItinerary={
+          itineraryRow ? parseStoredItinerary(itineraryRow as unknown as StoredItineraryRow) : null
+        }
       />
     </div>
   );

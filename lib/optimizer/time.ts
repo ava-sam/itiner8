@@ -13,6 +13,14 @@ export function diffMinutes(a: Date, b: Date): number {
   return (a.getTime() - b.getTime()) / 60_000;
 }
 
+/** Formats minutes-since-midnight back into "HH:MM" (inverse of timeOfDayToMinutes). */
+export function minutesOfDayToTimeOfDay(minutes: number): TimeOfDay {
+  const wrapped = ((minutes % 1440) + 1440) % 1440;
+  const hours = String(Math.floor(wrapped / 60)).padStart(2, "0");
+  const mins = String(wrapped % 60).padStart(2, "0");
+  return `${hours}:${mins}`;
+}
+
 /** Parses "HH:MM" into minutes since local midnight. */
 export function timeOfDayToMinutes(t: TimeOfDay): number {
   const match = /^(\d{1,2}):(\d{2})$/.exec(t);
