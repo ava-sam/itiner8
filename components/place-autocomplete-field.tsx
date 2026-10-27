@@ -5,6 +5,8 @@ import { useMapsLibrary } from "@vis.gl/react-google-maps";
 
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { fieldInputClass } from "@/components/ui/field";
+import { cn } from "@/lib/utils";
 
 // Shared shape for anything backed by a Google Places Autocomplete pick:
 // hangouts.start_location/end_location jsonb, and new public.places rows.
@@ -22,10 +24,15 @@ export function PlaceAutocompleteField({
   required,
   value,
   onChange,
+  variant = "default",
+  placeholder = "Search for a place",
 }: {
   id: string;
   label: string;
   required?: boolean;
+  /** "room" = the folder-style input (label becomes screen-reader only). */
+  variant?: "default" | "room";
+  placeholder?: string;
   value: PlaceAutocompleteValue;
   onChange: (value: PlaceAutocompleteValue) => void;
 }) {
@@ -78,15 +85,21 @@ export function PlaceAutocompleteField({
   }, [autocomplete, onChange]);
 
   return (
-    <div className="grid gap-2">
-      <Label htmlFor={id}>{label}</Label>
+    <div className={cn("grid gap-2", variant === "room" && "min-w-0 flex-1")}>
+      <Label htmlFor={id} className={cn(variant === "room" && "sr-only")}>
+        {label}
+      </Label>
       <Input
         id={id}
         ref={inputRef}
         type="text"
         required={required}
         defaultValue={value?.formatted_address ?? ""}
-        placeholder="Search for a place"
+        placeholder={placeholder}
+        className={cn(
+          variant === "room" &&
+            cn(fieldInputClass, "h-auto rounded-none px-3.5 shadow-none"),
+        )}
         onChange={() => {
           // Typing without picking a fresh suggestion invalidates whatever
           // place was previously selected.

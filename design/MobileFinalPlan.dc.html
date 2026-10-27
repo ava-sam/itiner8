@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Final Plan (Mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face { font-family:'Bootzy TM'; src:url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype'); font-weight:normal; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype'); font-weight:400; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype'); font-weight:700; font-style:normal; }
+  body { margin:0; background:#e7e8e4; }
+  .bg-photo { background-image:url(/_blob/4da3b25ed6ecd615f355ba729d70c61a); background-size:cover; background-position:center; background-repeat:no-repeat; }
+  .label-grotesk { font-family:'Alte Haas Grotesk','Helvetica Neue',Arial,sans-serif; text-transform:uppercase; }
+  .title-display { font-family:'Bootzy TM','Arial Narrow',sans-serif; text-transform:uppercase; }
+  .back-link { all:unset; cursor:pointer; display:flex; align-items:center; height:28px; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; letter-spacing:0.1em; font-weight:700; color:#18202b; }
+  .btn { all:unset; cursor:pointer; box-sizing:border-box; flex:1; text-align:center; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.08em; padding:10px 0; border:2px solid #18202b; background:#fbfaf6; color:#18202b; }
+  .btn.dark { background:#18202b; color:#e7e8e4; }
+  .stop-row { display:flex; gap:10px; }
+  .stop-time { width:54px; flex:0 0 auto; font-family:'Alte Haas Grotesk',sans-serif; font-size:12px; font-weight:700; text-transform:lowercase; padding-top:11px; text-align:right; }
+  .stop-card { flex:1; box-sizing:border-box; background:#fbfaf6; border:2px solid #18202b; padding:9px 12px; min-width:0; }
+  .stop-name { font-family:'Alte Haas Grotesk',sans-serif; font-size:14px; font-weight:700; text-transform:lowercase; }
+  .stop-meta { font-family:'Alte Haas Grotesk',sans-serif; font-size:11px; text-transform:lowercase; color:#4a5158; margin-top:2px; }
+  .badge { font-family:'Alte Haas Grotesk',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:3px 7px; border:1.5px solid #18202b; white-space:nowrap; }
+  .travel { display:flex; gap:10px; align-items:center; height:26px; }
+  .travel-spacer { width:54px; flex:0 0 auto; }
+  .travel-line { flex:1; display:flex; align-items:center; gap:8px; padding-left:12px; font-family:'Alte Haas Grotesk',sans-serif; font-size:10px; text-transform:uppercase; letter-spacing:0.08em; font-weight:700; color:#4a5158; }
+  .travel-line::before { content:''; width:0; height:26px; border-left:2px dashed #18202b; }
+  .detail-row { display:flex; justify-content:space-between; gap:12px; padding:6px 0; border-bottom:1px solid rgba(24,32,43,0.2); }
+  .detail-row:last-child { border-bottom:none; }
+  .detail-k { font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:9px; letter-spacing:0.12em; font-weight:700; color:#4a5158; padding-top:2px; }
+  .detail-v { font-family:'Alte Haas Grotesk',sans-serif; font-size:12px; text-transform:lowercase; text-align:right; }
+  .scroll-list { overflow-y:auto; scrollbar-width:thin; scrollbar-color:#18202b transparent; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width:390px; height:844px; box-sizing:border-box; position:relative; overflow:hidden; color:#18202b; background-color:#e7e8e4;">
+
+  <div class="title-display" style="position:absolute; top:18px; left:20px; font-size:34px; letter-spacing:calc(0.01em + 1px); line-height:1;">ITINER8</div>
+  <div class="label-grotesk" style="position:absolute; top:62px; left:20px; font-weight:400; font-size:10px; letter-spacing:calc(0.08em - 1px);">WELCOME BACK, {{usernameUpper}}</div>
+  <div style="position:absolute; top:96px; left:20px; right:20px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <button type="button" class="back-link" style="position:absolute; top:102px; left:20px;" onClick="{{goBack}}">&larr; back to plans</button>
+
+  <div style="position:absolute; left:20px; top:132px; width:170px; height:42px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#93a4c1" stroke="none"></path>
+      <image href="/_blob/7d9578fff3a6cef375d680cad3b1e797" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.22;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:14px; letter-spacing:0.06em; font-weight:700; -webkit-text-stroke:0.4px currentColor;">final plan</span>
+  </div>
+
+  <div style="position:absolute; left:20px; right:20px; top:173px; bottom:20px; z-index:1; border:3px solid #18202b; background:#93a4c1; overflow:hidden; box-sizing:border-box; padding:16px; display:flex; flex-direction:column;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/7d9578fff3a6cef375d680cad3b1e797); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.22; pointer-events:none;"></div>
+
+    <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+      <div class="title-display" style="font-size:22px; letter-spacing:0.02em; line-height:1.1; min-width:0;">saturday downtown crawl</div>
+      <div style="font-family:'Alte Haas Grotesk',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:4px 8px; border:1.5px solid #18202b; background:#93a4c1; white-space:nowrap;">finalized</div>
+    </div>
+    <div class="label-grotesk" style="position:relative; font-size:10px; letter-spacing:0.1em; font-weight:700; margin-bottom:12px;">sat, oct 4 · 2:00 pm – 7:10 pm · organized by ava</div>
+
+    <div style="position:relative; display:flex; gap:8px; margin-bottom:12px;">
+      <button type="button" class="btn" onClick="{{shareLink}}">share link</button>
+      <button type="button" class="btn dark" onClick="{{addCalendar}}">add to calendar</button>
+    </div>
+
+    <div class="scroll-list" style="position:relative; flex:1; min-height:0; display:flex; flex-direction:column;">
+
+      <div style="box-sizing:border-box; background:#fbfaf6; border:2px solid #18202b; padding:2px 12px; margin-bottom:14px;">
+        <div class="detail-row"><div class="detail-k">start</div><div class="detail-v">123 main st</div></div>
+        <div class="detail-row"><div class="detail-k">travel</div><div class="detail-v">driving · 35 min total</div></div>
+        <div class="detail-row"><div class="detail-k">members</div><div class="detail-v">ava, mia, jordan, sam</div></div>
+      </div>
+
+      <div class="stop-row">
+        <div class="stop-time">2:00 pm</div>
+        <div class="stop-card"><div class="stop-name">the garment district gallery</div><div class="stop-meta">art gallery · 60 min</div></div>
+      </div>
+      <div class="travel"><div class="travel-spacer"></div><div class="travel-line">drive · 12 min</div></div>
+
+      <div class="stop-row">
+        <div class="stop-time">3:22 pm</div>
+        <div class="stop-card"><div class="stop-name">blue bottle coffee</div><div class="stop-meta">coffee shop · 30 min</div></div>
+      </div>
+      <div class="travel"><div class="travel-spacer"></div><div class="travel-line">drive · 8 min</div></div>
+
+      <div class="stop-row">
+        <div class="stop-time">4:10 pm</div>
+        <div class="stop-card">
+          <div class="stop-name">harbor view tacos</div>
+          <div class="stop-meta">restaurant · 60 min</div>
+          <div style="margin-top:6px;"><span class="badge" style="background:#b1b2ae;">reservation 4:15 pm</span></div>
+        </div>
+      </div>
+      <div class="travel"><div class="travel-spacer"></div><div class="travel-line">drive · 15 min</div></div>
+
+      <div class="stop-row">
+        <div class="stop-time">5:40 pm</div>
+        <div class="stop-card"><div class="stop-name">city lights rooftop bar</div><div class="stop-meta">bar · 90 min</div></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return { usernameUpper: username.toUpperCase(), goBack: () => {}, shareLink: () => {}, addCalendar: () => {} };
+  }
+}
+</script>
+</body>
+</html>

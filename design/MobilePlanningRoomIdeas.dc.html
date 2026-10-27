@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Planning Room · Ideas (Mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face { font-family:'Bootzy TM'; src:url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype'); font-weight:normal; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype'); font-weight:400; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype'); font-weight:700; font-style:normal; }
+  body { margin:0; background:#e7e8e4; }
+  .bg-photo { background-image:url(/_blob/4da3b25ed6ecd615f355ba729d70c61a); background-size:cover; background-position:center; background-repeat:no-repeat; }
+  .label-grotesk { font-family:'Alte Haas Grotesk','Helvetica Neue',Arial,sans-serif; text-transform:uppercase; }
+  .title-display { font-family:'Bootzy TM','Arial Narrow',sans-serif; text-transform:uppercase; }
+  .back-link { all:unset; cursor:pointer; display:flex; align-items:center; height:28px; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; letter-spacing:0.1em; font-weight:700; color:#18202b; }
+  .room-tab { all:unset; cursor:pointer; box-sizing:border-box; flex:1; text-align:center; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.06em; color:#18202b; border:2px solid #18202b; padding:10px 0; background:#fbfaf6; }
+  .room-tab.active { background:#3d5580; color:#e7e8e4; }
+  .field-input { font-family:'Alte Haas Grotesk',sans-serif; font-size:14px; color:#18202b; background:#fbfaf6; border:2px solid #18202b; padding:10px 12px; flex:1; box-sizing:border-box; outline:none; text-transform:lowercase; min-width:0; }
+  .field-input::placeholder { color:#6b7078; text-transform:lowercase; }
+  .add-btn { all:unset; cursor:pointer; box-sizing:border-box; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.08em; color:#e7e8e4; background:#18202b; border:2px solid #18202b; padding:10px 12px; white-space:nowrap; }
+  .idea-card { display:flex; align-items:center; justify-content:space-between; gap:10px; box-sizing:border-box; background:#fbfaf6; border:2px solid #18202b; padding:10px 12px; }
+  .idea-name { font-family:'Alte Haas Grotesk',sans-serif; font-size:14px; font-weight:700; text-transform:lowercase; }
+  .idea-meta { font-family:'Alte Haas Grotesk',sans-serif; font-size:11px; text-transform:lowercase; color:#4a5158; margin-top:2px; }
+  .vote-btn { all:unset; cursor:pointer; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; justify-content:center; width:44px; height:44px; border:2px solid #18202b; background:#fbfaf6; font-family:'Alte Haas Grotesk',sans-serif; font-weight:700; flex:0 0 auto; }
+  .vote-btn.voted { background:#3d5580; color:#e7e8e4; }
+  .vote-arrow { font-size:9px; line-height:1; }
+  .vote-count { font-size:14px; line-height:1.1; margin-top:1px; }
+  .remove-btn { all:unset; cursor:pointer; font-family:'Alte Haas Grotesk',sans-serif; font-size:16px; font-weight:700; width:24px; height:24px; display:flex; align-items:center; justify-content:center; flex:0 0 auto; }
+  .scroll-list { overflow-y:auto; scrollbar-width:thin; scrollbar-color:#18202b transparent; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width:390px; height:844px; box-sizing:border-box; position:relative; overflow:hidden; color:#18202b; background-color:#e7e8e4;">
+
+  <div class="title-display" style="position:absolute; top:18px; left:20px; font-size:34px; letter-spacing:calc(0.01em + 1px); line-height:1;">ITINER8</div>
+  <div class="label-grotesk" style="position:absolute; top:62px; left:20px; font-weight:400; font-size:10px; letter-spacing:calc(0.08em - 1px);">WELCOME BACK, {{usernameUpper}}</div>
+  <div style="position:absolute; top:96px; left:20px; right:20px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <button type="button" class="back-link" style="position:absolute; top:102px; left:20px;" onClick="{{goBack}}">&larr; back to plans</button>
+
+  <div style="position:absolute; left:20px; top:132px; width:170px; height:42px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#d3dff2" stroke="none"></path>
+      <image href="/_blob/789edfde02fbcf9388665e3592795353" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.2;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:14px; letter-spacing:0.06em; font-weight:700; -webkit-text-stroke:0.4px currentColor;">planning room</span>
+  </div>
+
+  <div style="position:absolute; left:20px; right:20px; top:173px; bottom:20px; z-index:1; border:3px solid #18202b; background:#d3dff2; overflow:hidden; box-sizing:border-box; padding:16px; display:flex; flex-direction:column;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/789edfde02fbcf9388665e3592795353); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.2; pointer-events:none;"></div>
+
+    <!-- room header -->
+    <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;">
+      <div class="title-display" style="font-size:20px; letter-spacing:0.02em; line-height:1.1; min-width:0;">saturday downtown crawl</div>
+      <div style="font-family:'Alte Haas Grotesk',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:4px 8px; border:1.5px solid #18202b; background:#b1b2ae; white-space:nowrap;">planning</div>
+    </div>
+    <div style="position:relative; display:flex; align-items:center; border:2px solid #18202b; background:#fbfaf6; margin-bottom:12px;">
+      <div class="label-grotesk" style="font-size:9px; font-weight:700; letter-spacing:0.1em; padding:0 10px; color:#4a5158;">invite code</div>
+      <div class="label-grotesk" style="flex:1; text-align:center; font-size:14px; font-weight:700; letter-spacing:0.18em; padding:8px 0; border-left:2px solid #18202b; border-right:2px solid #18202b;">NG828XDV</div>
+      <button type="button" style="all:unset; cursor:pointer; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:10px; font-weight:700; letter-spacing:0.1em; padding:0 12px; background:#18202b; color:#e7e8e4; align-self:stretch; display:flex; align-items:center;" onClick="{{copyCode}}">copy</button>
+    </div>
+
+    <div style="position:relative; display:flex; gap:8px; margin-bottom:12px;">
+      <button type="button" class="room-tab active">ideas</button>
+      <button type="button" class="room-tab">finalists</button>
+      <button type="button" class="room-tab">plan</button>
+    </div>
+
+    <div style="position:relative; display:flex; gap:8px; margin-bottom:10px;">
+      <input class="field-input" type="text" placeholder="search for a place to add">
+      <button type="button" class="add-btn" onClick="{{addIdea}}">+ add</button>
+    </div>
+    <div class="label-grotesk" style="position:relative; font-size:11px; letter-spacing:0.12em; font-weight:700; margin-bottom:8px;">6 / 15 ideas</div>
+
+    <div class="scroll-list" style="position:relative; flex:1; min-height:0; display:flex; flex-direction:column; gap:8px;">
+      <div class="idea-card">
+        <div style="min-width:0;"><div class="idea-name">the garment district gallery</div><div class="idea-meta">art gallery · added by you</div></div>
+        <div style="display:flex; align-items:center; gap:4px;"><button type="button" class="remove-btn">×</button><button type="button" class="vote-btn voted"><span class="vote-arrow">▲</span><span class="vote-count">4</span></button></div>
+      </div>
+      <div class="idea-card">
+        <div style="min-width:0;"><div class="idea-name">blue bottle coffee</div><div class="idea-meta">coffee shop · added by mia</div></div>
+        <button type="button" class="vote-btn voted"><span class="vote-arrow">▲</span><span class="vote-count">3</span></button>
+      </div>
+      <div class="idea-card">
+        <div style="min-width:0;"><div class="idea-name">harbor view tacos</div><div class="idea-meta">restaurant · added by jordan</div></div>
+        <button type="button" class="vote-btn"><span class="vote-arrow">▲</span><span class="vote-count">3</span></button>
+      </div>
+      <div class="idea-card">
+        <div style="min-width:0;"><div class="idea-name">city lights rooftop bar</div><div class="idea-meta">bar · added by you</div></div>
+        <div style="display:flex; align-items:center; gap:4px;"><button type="button" class="remove-btn">×</button><button type="button" class="vote-btn"><span class="vote-arrow">▲</span><span class="vote-count">2</span></button></div>
+      </div>
+      <div class="idea-card">
+        <div style="min-width:0;"><div class="idea-name">botanical garden</div><div class="idea-meta">park · added by sam</div></div>
+        <button type="button" class="vote-btn"><span class="vote-arrow">▲</span><span class="vote-count">1</span></button>
+      </div>
+      <div class="idea-card">
+        <div style="min-width:0;"><div class="idea-name">vinyl alley records</div><div class="idea-meta">shop · added by mia</div></div>
+        <button type="button" class="vote-btn"><span class="vote-arrow">▲</span><span class="vote-count">0</span></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return { usernameUpper: username.toUpperCase(), goBack: () => {}, copyCode: () => {}, addIdea: () => {} };
+  }
+}
+</script>
+</body>
+</html>

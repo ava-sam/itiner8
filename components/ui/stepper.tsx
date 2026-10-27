@@ -7,11 +7,14 @@ type StepperProps = {
   max?: number;
   step?: number;
   unit?: string;
+  /** "sm" matches the compact controls on finalist cards. */
+  size?: "md" | "sm";
+  disabled?: boolean;
   className?: string;
 };
 
 const stepBtn =
-  "flex h-11 w-11 box-border items-center justify-center border-2 border-ink bg-input-white font-grotesk text-xl text-ink disabled:opacity-40";
+  "flex box-border items-center justify-center border-2 border-ink bg-input-white font-grotesk text-ink disabled:opacity-40";
 
 export function Stepper({
   value,
@@ -20,31 +23,46 @@ export function Stepper({
   max = Infinity,
   step = 1,
   unit,
+  size = "md",
+  disabled,
   className,
 }: StepperProps) {
+  const small = size === "sm";
+  const btn = cn(stepBtn, small ? "h-8 w-8 text-base" : "h-11 w-11 text-xl");
   return (
-    <div className={cn("flex items-center gap-3 md:gap-3.5", className)}>
+    <div
+      className={cn(
+        "flex items-center",
+        small ? "gap-1.5 md:gap-2" : "gap-3 md:gap-3.5",
+        className,
+      )}
+    >
       <button
         type="button"
-        className={stepBtn}
+        className={btn}
         aria-label="decrease"
-        disabled={value <= min}
+        disabled={disabled || value <= min}
         onClick={() => onChange(Math.max(min, value - step))}
       >
         −
       </button>
       <div
         aria-live="polite"
-        className="min-w-16 text-center font-grotesk text-[15px] font-bold uppercase md:min-w-[72px] md:text-base"
+        className={cn(
+          "text-center font-grotesk font-bold uppercase",
+          small
+            ? "min-w-9 text-[11px] md:min-w-[52px] md:text-[13px]"
+            : "min-w-16 text-[15px] md:min-w-[72px] md:text-base",
+        )}
       >
         {value}
         {unit ? ` ${unit}` : ""}
       </div>
       <button
         type="button"
-        className={stepBtn}
+        className={btn}
         aria-label="increase"
-        disabled={value >= max}
+        disabled={disabled || value >= max}
         onClick={() => onChange(Math.min(max, value + step))}
       >
         +

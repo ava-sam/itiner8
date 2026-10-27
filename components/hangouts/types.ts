@@ -11,6 +11,7 @@ export type PlaceInfo = {
   formatted_address: string;
   lat: number;
   lng: number;
+  primary_type?: string | null;
 };
 
 export type VoteRow = {
@@ -32,6 +33,8 @@ export type HangoutStop = {
   suggested_by: string;
   status: StopStatus;
   visit_duration_minutes: number;
+  is_required: boolean;
+  reservation_time: string | null;
   created_at: string;
   place: PlaceInfo;
   votes: VoteRow[];
@@ -63,4 +66,38 @@ export type DisplayItinerary = {
   generatedAt: Date;
   stops: DisplayItineraryStop[];
   conflicts: Conflict[];
+};
+
+export type RoomMember = {
+  profileId: string;
+  name: string;
+  role: "organizer" | "member";
+};
+
+export type HangoutStatus = "planning" | "generated" | "finalized" | "completed";
+
+// Everything the room / final-plan chrome needs about the hangout itself.
+export type HangoutMeta = {
+  id: string;
+  name: string;
+  status: HangoutStatus;
+  inviteCode: string;
+  organizerName: string;
+  timezone: string;
+  /** ISO instant the hangout starts (hangouts.start_time). */
+  startTime: string;
+  transportationMode: "driving" | "walking" | "transit";
+  bufferMinutes: number;
+  startLabel: string;
+  endLabel: string | null;
+  /** hangouts.updated_at — the closest thing to a "finalized at" stamp. */
+  updatedAt: string;
+};
+
+// Per-place extras for itinerary rendering, keyed by place id.
+export type ItineraryPlaceDetails = {
+  address: string;
+  category: string | null;
+  /** ISO instant the place closes on the visit day (only when the visit doesn't fit). */
+  closesAt: string | null;
 };

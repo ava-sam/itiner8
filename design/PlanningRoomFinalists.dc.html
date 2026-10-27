@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Planning Room · Finalists</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face { font-family:'Bootzy TM'; src:url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype'); font-weight:normal; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype'); font-weight:400; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype'); font-weight:700; font-style:normal; }
+  body { margin:0; background:#e7e8e4; }
+  .bg-photo { background-image:url(/_blob/4da3b25ed6ecd615f355ba729d70c61a); background-size:cover; background-position:center; background-repeat:no-repeat; }
+  .label-grotesk { font-family:'Alte Haas Grotesk','Helvetica Neue',Arial,sans-serif; text-transform:uppercase; }
+  .title-display { font-family:'Bootzy TM','Arial Narrow',sans-serif; text-transform:uppercase; }
+  .back-link { all:unset; cursor:pointer; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.1em; font-weight:700; color:#18202b; }
+  .back-link:hover { text-decoration:underline; }
+  .room-tab { all:unset; cursor:pointer; box-sizing:border-box; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:13px; font-weight:700; letter-spacing:0.08em; color:#18202b; border:2px solid #18202b; padding:11px 26px; background:#fbfaf6; }
+  .room-tab.active { background:#3d5580; color:#e7e8e4; }
+  .col-head { font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.12em; font-weight:700; margin-bottom:12px; }
+  .card { box-sizing:border-box; background:#fbfaf6; border:2px solid #18202b; padding:14px 18px; }
+  .card-name { font-family:'Alte Haas Grotesk',sans-serif; font-size:17px; font-weight:700; text-transform:lowercase; color:#18202b; }
+  .card-meta { font-family:'Alte Haas Grotesk',sans-serif; font-size:12px; text-transform:lowercase; color:#4a5158; margin-top:3px; }
+  .mini-btn { all:unset; cursor:pointer; box-sizing:border-box; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.08em; padding:9px 14px; border:2px solid #18202b; background:#fbfaf6; color:#18202b; white-space:nowrap; }
+  .mini-btn.dark { background:#18202b; color:#e7e8e4; }
+  .mini-btn:hover { opacity:0.85; }
+  .ctl-label { font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:10px; letter-spacing:0.12em; font-weight:700; display:block; margin-bottom:6px; }
+  .step-btn { all:unset; cursor:pointer; width:32px; height:32px; box-sizing:border-box; border:2px solid #18202b; display:flex; align-items:center; justify-content:center; font-size:16px; font-family:'Alte Haas Grotesk',sans-serif; background:#fbfaf6; }
+  .ctl-input { font-family:'Alte Haas Grotesk',sans-serif; font-size:14px; color:#18202b; background:#fbfaf6; border:2px solid #18202b; padding:6px 10px; height:32px; width:150px; box-sizing:border-box; outline:none; text-transform:lowercase; }
+  .ctl-input::placeholder { color:#6b7078; text-transform:lowercase; }
+  .check-box { width:22px; height:22px; box-sizing:border-box; border:2px solid #18202b; background:#fbfaf6; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; line-height:1; }
+  .check-box.on { background:#3d5580; color:#e7e8e4; }
+  .scroll-list { overflow-y:auto; scrollbar-width:thin; scrollbar-color:#18202b transparent; }
+  .avatar { width:34px; height:34px; box-sizing:border-box; border:2px solid #18202b; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Alte Haas Grotesk',sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; margin-left:-8px; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width:1440px; height:900px; box-sizing:border-box; position:relative; overflow:hidden; color:#18202b; background-color:#e7e8e4;">
+
+  <div class="title-display" style="position:absolute; top:26px; left:64px; font-size:68px; letter-spacing:calc(0.01em + 2px); line-height:1;">ITINER8</div>
+  <div class="label-grotesk" style="position:absolute; top:56px; right:64px; font-weight:400; font-size:18px; letter-spacing:calc(0.1em - 2px); color:#18202b;">WELCOME BACK, {{usernameUpper}}</div>
+  <div style="position:absolute; top:112px; left:64px; right:64px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <button type="button" class="back-link" style="position:absolute; top:130px; left:64px;" onClick="{{goBack}}">&larr; back to plans</button>
+
+  <div style="position:absolute; left:64px; top:158px; width:230px; height:48px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#d3dff2" stroke="none"></path>
+      <image href="/_blob/789edfde02fbcf9388665e3592795353" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.2;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:17px; letter-spacing:0.08em; font-weight:700; -webkit-text-stroke:0.5px currentColor;">planning room</span>
+  </div>
+
+  <div style="position:absolute; left:64px; right:64px; top:205px; bottom:40px; z-index:1; border:3px solid #18202b; background:#d3dff2; overflow:hidden; box-sizing:border-box; padding:32px 40px; display:flex; flex-direction:column;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/789edfde02fbcf9388665e3592795353); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.2; pointer-events:none;"></div>
+
+    <!-- room header -->
+    <div style="position:relative; display:flex; align-items:center; justify-content:space-between; gap:24px; margin-bottom:22px;">
+      <div style="display:flex; align-items:center; gap:18px; min-width:0;">
+        <div class="title-display" style="font-size:34px; letter-spacing:0.02em; line-height:1; white-space:nowrap;">saturday downtown crawl</div>
+        <div style="font-family:'Alte Haas Grotesk',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:6px 14px; border:1.5px solid #18202b; background:#b1b2ae; white-space:nowrap;">planning</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:22px;">
+        <div style="display:flex; align-items:center; padding-left:8px;">
+          <div class="avatar" style="background:#93a4c1;">A</div>
+          <div class="avatar" style="background:#b1b2ae;">M</div>
+          <div class="avatar" style="background:#aebbd2;">J</div>
+          <div class="avatar" style="background:#fbfaf6;">S</div>
+        </div>
+        <div style="display:flex; align-items:center; border:2px solid #18202b; background:#fbfaf6;">
+          <div class="label-grotesk" style="font-size:11px; font-weight:700; letter-spacing:0.12em; padding:0 12px; color:#4a5158;">invite code</div>
+          <div class="label-grotesk" style="font-size:15px; font-weight:700; letter-spacing:0.18em; padding:9px 14px; border-left:2px solid #18202b; border-right:2px solid #18202b;">NG828XDV</div>
+          <button type="button" style="all:unset; cursor:pointer; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.1em; padding:0 14px; background:#18202b; color:#e7e8e4; align-self:stretch; display:flex; align-items:center;" onClick="{{copyCode}}">copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- tabs -->
+    <div style="position:relative; display:flex; gap:12px; margin-bottom:22px;">
+      <button type="button" class="room-tab">ideas</button>
+      <button type="button" class="room-tab active">finalists</button>
+      <button type="button" class="room-tab">plan</button>
+    </div>
+
+    <div style="position:relative; flex:1; min-height:0; display:flex; gap:32px;">
+
+      <!-- left: remaining ideas -->
+      <div style="flex:0 0 400px; display:flex; flex-direction:column; min-height:0;">
+        <div class="col-head">other ideas · by votes</div>
+        <div class="scroll-list" style="flex:1; min-height:0; display:flex; flex-direction:column; gap:10px; padding-right:6px;">
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div style="min-width:0;">
+              <div class="card-name">botanical garden</div>
+              <div class="card-meta">park · 1 vote · added by sam</div>
+            </div>
+            <button type="button" class="mini-btn dark" onClick="{{addFinalist}}">+ finalist</button>
+          </div>
+          <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+            <div style="min-width:0;">
+              <div class="card-name">vinyl alley records</div>
+              <div class="card-meta">shop · 0 votes · added by mia</div>
+            </div>
+            <button type="button" class="mini-btn dark" onClick="{{addFinalist}}">+ finalist</button>
+          </div>
+        </div>
+        <div class="card" style="margin-top:12px; background:rgba(251,250,246,0.55); font-family:'Alte Haas Grotesk',sans-serif; font-size:12px; text-transform:lowercase; line-height:1.5;">only the organizer picks finalists. votes are a guide, not a rule.</div>
+      </div>
+
+      <!-- right: finalists with settings -->
+      <div style="flex:1; display:flex; flex-direction:column; min-height:0;">
+        <div class="col-head">4 / 8 finalists</div>
+        <div class="scroll-list" style="flex:1; min-height:0; display:flex; flex-direction:column; gap:10px; padding-right:6px;">
+
+          <div class="card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <div><div class="card-name">the garment district gallery</div><div class="card-meta">art gallery · 4 votes</div></div>
+              <button type="button" class="mini-btn">remove</button>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:28px;">
+              <div><label class="ctl-label">visit time</label><div style="display:flex; align-items:center; gap:8px;"><button type="button" class="step-btn">−</button><div class="label-grotesk" style="font-size:13px; font-weight:700; min-width:52px; text-align:center;">60 min</div><button type="button" class="step-btn">+</button></div></div>
+              <div><label class="ctl-label">required stop</label><div class="check-box on">✓</div></div>
+              <div><label class="ctl-label">reservation (optional)</label><input class="ctl-input" type="text" placeholder="e.g. 4:15 pm"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <div><div class="card-name">blue bottle coffee</div><div class="card-meta">coffee shop · 3 votes</div></div>
+              <button type="button" class="mini-btn">remove</button>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:28px;">
+              <div><label class="ctl-label">visit time</label><div style="display:flex; align-items:center; gap:8px;"><button type="button" class="step-btn">−</button><div class="label-grotesk" style="font-size:13px; font-weight:700; min-width:52px; text-align:center;">30 min</div><button type="button" class="step-btn">+</button></div></div>
+              <div><label class="ctl-label">required stop</label><div class="check-box"></div></div>
+              <div><label class="ctl-label">reservation (optional)</label><input class="ctl-input" type="text" placeholder="e.g. 4:15 pm"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <div><div class="card-name">harbor view tacos</div><div class="card-meta">restaurant · 3 votes</div></div>
+              <button type="button" class="mini-btn">remove</button>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:28px;">
+              <div><label class="ctl-label">visit time</label><div style="display:flex; align-items:center; gap:8px;"><button type="button" class="step-btn">−</button><div class="label-grotesk" style="font-size:13px; font-weight:700; min-width:52px; text-align:center;">60 min</div><button type="button" class="step-btn">+</button></div></div>
+              <div><label class="ctl-label">required stop</label><div class="check-box on">✓</div></div>
+              <div><label class="ctl-label">reservation (optional)</label><input class="ctl-input" type="text" value="4:15 pm"></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px;">
+              <div><div class="card-name">city lights rooftop bar</div><div class="card-meta">bar · 2 votes</div></div>
+              <button type="button" class="mini-btn">remove</button>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:28px;">
+              <div><label class="ctl-label">visit time</label><div style="display:flex; align-items:center; gap:8px;"><button type="button" class="step-btn">−</button><div class="label-grotesk" style="font-size:13px; font-weight:700; min-width:52px; text-align:center;">90 min</div><button type="button" class="step-btn">+</button></div></div>
+              <div><label class="ctl-label">required stop</label><div class="check-box"></div></div>
+              <div><label class="ctl-label">reservation (optional)</label><input class="ctl-input" type="text" placeholder="e.g. 4:15 pm"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return {
+      usernameUpper: username.toUpperCase(),
+      goBack: () => {},
+      copyCode: () => {},
+      addFinalist: () => {}
+    };
+  }
+}
+</script>
+</body>
+</html>

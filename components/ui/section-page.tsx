@@ -10,6 +10,10 @@ type SectionPageProps = {
   texture: string;
   textureOpacity: number;
   backHref?: string;
+  backLabel?: string;
+  /** On md+, pin the sheet to the viewport height so inner lists scroll. */
+  contained?: boolean;
+  sheetClassName?: string;
   children: React.ReactNode;
 };
 
@@ -24,15 +28,23 @@ export function SectionPage({
   texture,
   textureOpacity,
   backHref = "/dashboard",
+  backLabel = "back to dashboard",
+  contained,
+  sheetClassName,
   children,
 }: SectionPageProps) {
   return (
-    <div className="flex min-h-[calc(100dvh-96px)] flex-col px-5 pb-5 pt-1.5 md:min-h-[calc(100dvh-112px)] md:px-16 md:pb-10 md:pt-[18px]">
+    <div
+      className={cn(
+        "flex min-h-[calc(100dvh-96px)] flex-col px-5 pb-5 pt-1.5 md:min-h-[calc(100dvh-112px)] md:px-16 md:pb-10 md:pt-[18px]",
+        contained && "md:h-[calc(100dvh-112px)]",
+      )}
+    >
       <Link
         href={backHref}
         className="mb-0.5 flex h-7 items-center self-start font-grotesk text-[11px] font-bold uppercase tracking-[0.1em] hover:underline md:mb-0 md:text-xs"
       >
-        ← back to dashboard
+        ← {backLabel}
       </Link>
       <FolderTab
         color={color}
@@ -46,7 +58,7 @@ export function SectionPage({
         color={color}
         texture={texture}
         textureOpacity={textureOpacity}
-        className={cn("z-[1] flex-1 p-5 md:p-10")}
+        className={cn("z-[1] min-h-0 flex-1 p-5 md:p-10", sheetClassName)}
       >
         {children}
       </FolderSheet>

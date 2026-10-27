@@ -3,23 +3,31 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 import type { PlaceAutocompleteValue } from "@/components/place-autocomplete-field";
 import type {
   ActionResult,
   DisplayItinerary,
+  HangoutMeta,
   HangoutStop,
+  ItineraryPlaceDetails,
   PlaceInfo,
+  RoomMember,
 } from "@/components/hangouts/types";
+import { AvatarStack } from "@/components/ui/avatar-stack";
+import { InviteCodeChip } from "@/components/ui/invite-code-chip";
+import { RoomTabs } from "@/components/ui/room-tabs";
+import { SectionPage } from "@/components/ui/section-page";
+import { StatusPill } from "@/components/ui/status-pill";
+import { instantAtLocalMinutes, getLocalParts } from "@/lib/optimizer/time";
 import { IdeasTab } from "@/components/hangouts/ideas-tab";
 import { FinalistsTab } from "@/components/hangouts/finalists-tab";
 import { PlanTab } from "@/components/hangouts/plan-tab";
 
 const TABS = [
-  { id: "ideas", label: "Ideas" },
-  { id: "finalists", label: "Finalists" },
-  { id: "plan", label: "Plan" },
+  { id: "ideas", label: "ideas" },
+  { id: "finalists", label: "finalists" },
+  { id: "plan", label: "plan" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -32,18 +40,27 @@ const MAX_FINALISTS = 8;
 const DEFAULT_VISIT_DURATION_MINUTES = 60;
 
 export function HangoutRoom({
-  hangoutId,
+  hangout,
+  members,
   profileId,
   isOrganizer,
   initialStops,
   initialItinerary,
+  placeDetails,
 }: {
-  hangoutId: string;
+  hangout: HangoutMeta;
+  members: RoomMember[];
   profileId: string;
   isOrganizer: boolean;
   initialStops: HangoutStop[];
   initialItinerary: DisplayItinerary | null;
+  placeDetails: Record<string, ItineraryPlaceDetails>;
 }) {
+  const hangoutId = hangout.id;
+  const memberNames = useMemo(
+    () => Object.fromEntries(members.map((m) => [m.profileId, m.name])),
+    [members],
+  );
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -91,6 +108,8 @@ export function HangoutRoom({
             suggested_by: string;
             status: HangoutStop["status"];
             visit_duration_minutes: number;
+            is_required: boolean;
+            reservation_time: string | null;
             created_at: string;
           };
 
@@ -108,6 +127,8 @@ export function HangoutRoom({
                     ...s,
                     status: row.status,
                     visit_duration_minutes: row.visit_duration_minutes,
+                    is_required: row.is_required,
+                    reservation_time: row.reservation_time,
                   }
                 : s,
             );
@@ -121,7 +142,7 @@ export function HangoutRoom({
 
             void supabase
               .from("places")
-              .select("id, name, formatted_address, lat, lng")
+              .select("id, name, formatted_address, lat, lng, primary_type")
               .eq("id", row.place_id)
               .single()
               .then(({ data: place }) => {
@@ -135,6 +156,8 @@ export function HangoutRoom({
                     suggested_by: row.suggested_by,
                     status: row.status,
                     visit_duration_minutes: row.visit_duration_minutes,
+                    is_required: row.is_required,
+                    reservation_time: row.reservation_time,
                     created_at: row.created_at,
                     place,
                     votes: [],
@@ -220,7 +243,7 @@ export function HangoutRoom({
       // rejected by RLS.
       const { data: existingPlace } = await supabase
         .from("places")
-        .select("id, name, formatted_address, lat, lng")
+        .select("id, name, formatted_address, lat, lng, primary_type")
         .eq("google_place_id", pick.place_id)
         .maybeSingle();
 
@@ -238,7 +261,7 @@ export function HangoutRoom({
             lat: pick.lat,
             lng: pick.lng,
           })
-          .select("id, name, formatted_address, lat, lng")
+          .select("id, name, formatted_address, lat, lng, primary_type")
           .single();
 
         if (insertPlaceError || !inserted) {
@@ -247,7 +270,7 @@ export function HangoutRoom({
           // failing outright.
           const { data: retried } = await supabase
             .from("places")
-            .select("id, name, formatted_address, lat, lng")
+            .select("id, name, formatted_address, lat, lng, primary_type")
             .eq("google_place_id", pick.place_id)
             .maybeSingle();
           if (!retried) {
@@ -271,7 +294,7 @@ export function HangoutRoom({
           visit_duration_minutes: DEFAULT_VISIT_DURATION_MINUTES,
         })
         .select(
-          "id, hangout_id, place_id, suggested_by, status, visit_duration_minutes, created_at",
+          "id, hangout_id, place_id, suggested_by, status, visit_duration_minutes, is_required, reservation_time, created_at",
         )
         .single();
 
@@ -322,6 +345,43 @@ export function HangoutRoom({
       return {};
     },
     [],
+  );
+
+  const updateFinalistSettings = useCallback(
+    async (
+      stopId: string,
+      changes: { is_required?: boolean; reservation_time?: string | null },
+    ): Promise<ActionResult> => {
+      const supabase = createClient();
+      const { error } = await supabase
+        .from("hangout_stops")
+        .update(changes)
+        .eq("id", stopId);
+      if (error) return { error: error.message };
+      setStops((prev) =>
+        prev.map((s) => (s.id === stopId ? { ...s, ...changes } : s)),
+      );
+      return {};
+    },
+    [],
+  );
+
+  // Typed "4:15 pm" -> the instant on the hangout's local start date.
+  const toReservationInstant = useCallback(
+    (minutesOfDay: number): string => {
+      const { year, month, date } = getLocalParts(
+        new Date(hangout.startTime),
+        hangout.timezone,
+      );
+      return instantAtLocalMinutes(
+        hangout.timezone,
+        year,
+        month,
+        date,
+        minutesOfDay,
+      ).toISOString();
+    },
+    [hangout.startTime, hangout.timezone],
   );
 
   const toggleVote = useCallback(
@@ -402,57 +462,81 @@ export function HangoutRoom({
     [],
   );
 
-  return (
-    <div className="flex flex-col gap-6">
-      <div role="tablist" className="flex gap-2 border-b">
-        {TABS.map((tab) => (
-          <button
-            key={tab.id}
-            type="button"
-            role="tab"
-            aria-selected={activeTab === tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={cn(
-              "px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors",
-              activeTab === tab.id
-                ? "border-primary text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground",
-            )}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+  const showInviteOnMobile = activeTab === "ideas";
 
-      {activeTab === "ideas" && (
-        <IdeasTab
-          profileId={profileId}
-          candidates={candidates}
-          maxCandidates={MAX_CANDIDATES}
-          onAddPlace={addPlace}
-          onRemoveStop={removeStop}
-          onUpdateVisitDuration={updateVisitDuration}
-          onToggleVote={toggleVote}
+  return (
+    <SectionPage
+      label="planning room"
+      color="#d3dff2"
+      texture="/textures/texture-blue.png"
+      textureOpacity={0.2}
+      backLabel="back to plans"
+      contained
+      sheetClassName="p-4 md:px-10 md:py-8"
+    >
+      <div className="flex min-h-0 flex-1 flex-col">
+        <div className="mb-2.5 flex flex-col gap-2.5 md:mb-[22px] md:flex-row md:items-center md:justify-between md:gap-6">
+          <div className="flex min-w-0 items-center justify-between gap-2 md:justify-start md:gap-[18px]">
+            <h1 className="min-w-0 font-display text-xl uppercase leading-[1.1] tracking-[0.02em] md:whitespace-nowrap md:text-[34px] md:leading-none">
+              {hangout.name}
+            </h1>
+            <StatusPill status={hangout.status} />
+          </div>
+          <div className="flex items-center md:gap-[22px]">
+            <AvatarStack
+              names={members.map((m) => m.name)}
+              className="hidden md:flex"
+            />
+            <InviteCodeChip
+              code={hangout.inviteCode}
+              className={showInviteOnMobile ? "w-full md:w-auto" : "hidden md:flex"}
+            />
+          </div>
+        </div>
+
+        <RoomTabs
+          tabs={[...TABS]}
+          active={activeTab}
+          onChange={setActiveTab}
+          className="mb-3 md:mb-[22px]"
         />
-      )}
-      {activeTab === "finalists" && (
-        <FinalistsTab
-          isOrganizer={isOrganizer}
-          candidates={candidates}
-          finalists={finalists}
-          maxFinalists={MAX_FINALISTS}
-          onMoveToFinalists={moveToFinalists}
-          onRemoveFromFinalists={removeFromFinalists}
-        />
-      )}
-      {activeTab === "plan" && (
-        <PlanTab
-          hangoutId={hangoutId}
-          isOrganizer={isOrganizer}
-          finalistsCount={finalists.length}
-          initialItinerary={initialItinerary}
-        />
-      )}
-    </div>
+
+        {activeTab === "ideas" && (
+          <IdeasTab
+            profileId={profileId}
+            memberNames={memberNames}
+            candidates={candidates}
+            maxCandidates={MAX_CANDIDATES}
+            onAddPlace={addPlace}
+            onRemoveStop={removeStop}
+            onToggleVote={toggleVote}
+          />
+        )}
+        {activeTab === "finalists" && (
+          <FinalistsTab
+            isOrganizer={isOrganizer}
+            memberNames={memberNames}
+            timezone={hangout.timezone}
+            candidates={candidates}
+            finalists={finalists}
+            maxFinalists={MAX_FINALISTS}
+            onMoveToFinalists={moveToFinalists}
+            onRemoveFromFinalists={removeFromFinalists}
+            onUpdateVisitDuration={updateVisitDuration}
+            onUpdateSettings={updateFinalistSettings}
+            toReservationInstant={toReservationInstant}
+          />
+        )}
+        {activeTab === "plan" && (
+          <PlanTab
+            hangout={hangout}
+            isOrganizer={isOrganizer}
+            finalistsCount={finalists.length}
+            initialItinerary={initialItinerary}
+            placeDetails={placeDetails}
+          />
+        )}
+      </div>
+    </SectionPage>
   );
 }

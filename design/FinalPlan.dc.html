@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Final Plan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face { font-family:'Bootzy TM'; src:url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype'); font-weight:normal; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype'); font-weight:400; font-style:normal; }
+  @font-face { font-family:'Alte Haas Grotesk'; src:url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype'); font-weight:700; font-style:normal; }
+  body { margin:0; background:#e7e8e4; }
+  .bg-photo { background-image:url(/_blob/4da3b25ed6ecd615f355ba729d70c61a); background-size:cover; background-position:center; background-repeat:no-repeat; }
+  .label-grotesk { font-family:'Alte Haas Grotesk','Helvetica Neue',Arial,sans-serif; text-transform:uppercase; }
+  .title-display { font-family:'Bootzy TM','Arial Narrow',sans-serif; text-transform:uppercase; }
+  .back-link { all:unset; cursor:pointer; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.1em; font-weight:700; color:#18202b; }
+  .back-link:hover { text-decoration:underline; }
+  .btn { all:unset; cursor:pointer; box-sizing:border-box; font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:12px; font-weight:700; letter-spacing:0.08em; padding:11px 20px; border:2px solid #18202b; background:#fbfaf6; color:#18202b; white-space:nowrap; }
+  .btn.dark { background:#18202b; color:#e7e8e4; }
+  .btn:hover { opacity:0.85; }
+  .col-head { font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.12em; font-weight:700; }
+  .stop-row { display:flex; gap:16px; }
+  .stop-time { width:76px; flex:0 0 auto; font-family:'Alte Haas Grotesk',sans-serif; font-size:14px; font-weight:700; text-transform:lowercase; padding-top:15px; text-align:right; }
+  .stop-card { flex:1; box-sizing:border-box; background:#fbfaf6; border:2px solid #18202b; padding:12px 16px; min-width:0; }
+  .stop-name { font-family:'Alte Haas Grotesk',sans-serif; font-size:17px; font-weight:700; text-transform:lowercase; }
+  .stop-meta { font-family:'Alte Haas Grotesk',sans-serif; font-size:12px; text-transform:lowercase; color:#4a5158; margin-top:3px; }
+  .badge { font-family:'Alte Haas Grotesk',sans-serif; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:4px 9px; border:1.5px solid #18202b; white-space:nowrap; }
+  .travel { display:flex; gap:16px; align-items:center; height:30px; }
+  .travel-spacer { width:76px; flex:0 0 auto; }
+  .travel-line { flex:1; display:flex; align-items:center; gap:10px; padding-left:16px; font-family:'Alte Haas Grotesk',sans-serif; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; font-weight:700; color:#4a5158; }
+  .travel-line::before { content:''; width:0; height:30px; border-left:2px dashed #18202b; }
+  .detail-row { display:flex; justify-content:space-between; gap:16px; padding:8px 0; border-bottom:1px solid rgba(24,32,43,0.2); }
+  .detail-row:last-child { border-bottom:none; }
+  .detail-k { font-family:'Alte Haas Grotesk',sans-serif; text-transform:uppercase; font-size:10px; letter-spacing:0.12em; font-weight:700; color:#4a5158; padding-top:2px; }
+  .detail-v { font-family:'Alte Haas Grotesk',sans-serif; font-size:13px; text-transform:lowercase; text-align:right; }
+  .scroll-list { overflow-y:auto; scrollbar-width:thin; scrollbar-color:#18202b transparent; }
+  .avatar { width:34px; height:34px; box-sizing:border-box; border:2px solid #18202b; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Alte Haas Grotesk',sans-serif; font-weight:700; font-size:13px; text-transform:uppercase; margin-left:-8px; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width:1440px; height:900px; box-sizing:border-box; position:relative; overflow:hidden; color:#18202b; background-color:#e7e8e4;">
+
+  <div class="title-display" style="position:absolute; top:26px; left:64px; font-size:68px; letter-spacing:calc(0.01em + 2px); line-height:1;">ITINER8</div>
+  <div class="label-grotesk" style="position:absolute; top:56px; right:64px; font-weight:400; font-size:18px; letter-spacing:calc(0.1em - 2px); color:#18202b;">WELCOME BACK, {{usernameUpper}}</div>
+  <div style="position:absolute; top:112px; left:64px; right:64px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <button type="button" class="back-link" style="position:absolute; top:130px; left:64px;" onClick="{{goBack}}">&larr; back to plans</button>
+
+  <!-- section tab -->
+  <div style="position:absolute; left:64px; top:158px; width:230px; height:48px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#93a4c1" stroke="none"></path>
+      <image href="/_blob/7d9578fff3a6cef375d680cad3b1e797" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.22;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:17px; letter-spacing:0.08em; font-weight:700; -webkit-text-stroke:0.5px currentColor;">final plan</span>
+  </div>
+
+  <!-- the open folder sheet -->
+  <div style="position:absolute; left:64px; right:64px; top:205px; bottom:40px; z-index:1; border:3px solid #18202b; background:#93a4c1; overflow:hidden; box-sizing:border-box; padding:32px 40px; display:flex; flex-direction:column;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/7d9578fff3a6cef375d680cad3b1e797); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.22; pointer-events:none;"></div>
+
+    <!-- header -->
+    <div style="position:relative; display:flex; align-items:flex-start; justify-content:space-between; gap:24px; margin-bottom:26px;">
+      <div style="min-width:0;">
+        <div style="display:flex; align-items:center; gap:18px;">
+          <div class="title-display" style="font-size:38px; letter-spacing:0.02em; line-height:1; white-space:nowrap;">saturday downtown crawl</div>
+          <div style="font-family:'Alte Haas Grotesk',sans-serif; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; padding:6px 14px; border:1.5px solid #18202b; background:#93a4c1; white-space:nowrap;">finalized</div>
+        </div>
+        <div class="label-grotesk" style="margin-top:12px; font-size:12px; letter-spacing:0.12em; font-weight:700;">sat, oct 4 · 2:00 pm – 7:10 pm · organized by ava</div>
+      </div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <div style="display:flex; align-items:center; padding-left:8px; margin-right:8px;">
+          <div class="avatar" style="background:#d3dff2;">A</div>
+          <div class="avatar" style="background:#b1b2ae;">M</div>
+          <div class="avatar" style="background:#aebbd2;">J</div>
+          <div class="avatar" style="background:#fbfaf6;">S</div>
+        </div>
+        <button type="button" class="btn" onClick="{{shareLink}}">share link</button>
+        <button type="button" class="btn dark" onClick="{{addCalendar}}">add to calendar</button>
+      </div>
+    </div>
+
+    <div style="position:relative; flex:1; min-height:0; display:flex; gap:32px;">
+
+      <!-- left: final itinerary -->
+      <div style="flex:0 0 640px; display:flex; flex-direction:column; min-height:0;">
+        <div class="col-head" style="margin-bottom:14px;">4 stops · 35 min driving</div>
+        <div class="scroll-list" style="flex:1; min-height:0; display:flex; flex-direction:column; padding-right:6px;">
+
+          <div class="stop-row">
+            <div class="stop-time">2:00 pm</div>
+            <div class="stop-card">
+              <div class="stop-name">the garment district gallery</div>
+              <div class="stop-meta">art gallery · 123 main st · 60 min</div>
+            </div>
+          </div>
+          <div class="travel"><div class="travel-spacer"></div><div class="travel-line">drive · 12 min</div></div>
+
+          <div class="stop-row">
+            <div class="stop-time">3:22 pm</div>
+            <div class="stop-card">
+              <div class="stop-name">blue bottle coffee</div>
+              <div class="stop-meta">coffee shop · 66 mint st · 30 min</div>
+            </div>
+          </div>
+          <div class="travel"><div class="travel-spacer"></div><div class="travel-line">drive · 8 min</div></div>
+
+          <div class="stop-row">
+            <div class="stop-time">4:10 pm</div>
+            <div class="stop-card">
+              <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+                <div class="stop-name">harbor view tacos</div>
+                <span class="badge" style="background:#b1b2ae;">reservation 4:15 pm</span>
+              </div>
+              <div class="stop-meta">restaurant · 12 pier ave · 60 min</div>
+            </div>
+          </div>
+          <div class="travel"><div class="travel-spacer"></div><div class="travel-line">drive · 15 min</div></div>
+
+          <div class="stop-row">
+            <div class="stop-time">5:40 pm</div>
+            <div class="stop-card">
+              <div class="stop-name">city lights rooftop bar</div>
+              <div class="stop-meta">bar · 400 market st · 90 min</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- right: details + map -->
+      <div style="flex:1; display:flex; flex-direction:column; gap:14px; min-height:0;">
+        <div style="box-sizing:border-box; background:#fbfaf6; border:2px solid #18202b; padding:6px 18px;">
+          <div class="detail-row"><div class="detail-k">start</div><div class="detail-v">123 main st</div></div>
+          <div class="detail-row"><div class="detail-k">end</div><div class="detail-v">last stop</div></div>
+          <div class="detail-row"><div class="detail-k">travel</div><div class="detail-v">driving</div></div>
+          <div class="detail-row"><div class="detail-k">finalized</div><div class="detail-v">thu, oct 2 · by ava</div></div>
+        </div>
+        <div style="position:relative; flex:1; min-height:0; border:2px solid #18202b; background:rgba(251,250,246,0.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;">
+          <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#18202b" stroke-width="2">
+            <path d="M28 6 c-9 0-16 7-16 16 0 12 16 28 16 28s16-16 16-28c0-9-7-16-16-16z"></path>
+            <circle cx="28" cy="22" r="6"></circle>
+          </svg>
+          <div class="label-grotesk" style="font-size:13px; letter-spacing:0.14em; font-weight:700;">route map appears here</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return { usernameUpper: username.toUpperCase(), goBack: () => {}, shareLink: () => {}, addCalendar: () => {} };
+  }
+}
+</script>
+</body>
+</html>
