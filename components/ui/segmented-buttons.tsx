@@ -1,6 +1,10 @@
 import { cn } from "@/lib/utils";
 
-type Option<T extends string> = { value: T; label: string };
+type Option<T extends string> = {
+  value: T;
+  label: string;
+  disabled?: boolean;
+};
 
 type SegmentedButtonsProps<T extends string> = {
   options: Option<T>[];
@@ -34,12 +38,14 @@ export function SegmentedButtons<T extends string>({
             type="button"
             role="radio"
             aria-checked={active}
+            disabled={o.disabled}
             onClick={() => onChange(o.value)}
             className={cn(
               "box-border flex-1 border-2 border-ink py-3 text-center font-grotesk text-xs font-bold uppercase tracking-[0.06em] md:py-3.5 md:text-[13px]",
               active
                 ? cn("text-bg", tone === "grey" ? "bg-sel-grey" : "bg-sel-blue")
                 : "bg-input-white text-ink",
+              o.disabled && "cursor-not-allowed opacity-40",
             )}
           >
             {o.label}

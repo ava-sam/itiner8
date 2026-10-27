@@ -19,7 +19,7 @@ export function FolderSheet({
   return (
     <div
       className={cn(
-        "relative overflow-hidden border-[3px] border-ink",
+        "relative flex flex-col overflow-hidden border-[3px] border-ink",
         className,
       )}
       style={{ backgroundColor: color }}
@@ -29,7 +29,9 @@ export function FolderSheet({
         className="pointer-events-none absolute inset-0 bg-cover bg-center mix-blend-multiply"
         style={{ backgroundImage: `url(${texture})`, opacity: textureOpacity }}
       />
-      {children && <div className="relative">{children}</div>}
+      {children && (
+        <div className="relative flex flex-1 flex-col">{children}</div>
+      )}
     </div>
   );
 }

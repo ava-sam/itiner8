@@ -13,7 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { safeNextPath } from "@/lib/safe-next";
+import { TurnstileField, useTurnstile } from "@/components/turnstile-field";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
 export function LoginForm({
@@ -25,6 +27,8 @@ export function LoginForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const turnstile = useTurnstile();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -32,16 +36,25 @@ export function LoginForm({
     setIsLoading(true);
     setError(null);
 
+    if (turnstile.enabled && !turnstile.token) {
+      setError("Please complete the captcha check.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password,
+        options: { captchaToken: turnstile.token ?? undefined },
       });
       if (error) throw error;
       // Update this route to redirect to an authenticated route. The user already has an active session.
       router.refresh();
-      router.push("/dashboard");
+      // Only follow same-site relative paths (e.g. /join?code=...).
+      router.push(safeNextPath(searchParams.get("next")));
     } catch (error: unknown) {
+      turnstile.reset();
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setIsLoading(false);
@@ -89,6 +102,7 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
+              <TurnstileField state={turnstile} />
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Logging in..." : "Login"}

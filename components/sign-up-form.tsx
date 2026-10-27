@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { TurnstileField, useTurnstile } from "@/components/turnstile-field";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -27,6 +28,7 @@ export function SignUpForm({
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const turnstile = useTurnstile();
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +49,12 @@ export function SignUpForm({
       return;
     }
 
+    if (turnstile.enabled && !turnstile.token) {
+      setError("Please complete the captcha check.");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const { error } = await supabase.auth.signUp({
         email,
@@ -56,11 +64,13 @@ export function SignUpForm({
             display_name: trimmedDisplayName,
           },
           emailRedirectTo: `${window.location.origin}/dashboard`,
+          captchaToken: turnstile.token ?? undefined,
         },
       });
       if (error) throw error;
       router.push("/auth/sign-up-success");
     } catch (error: unknown) {
+      turnstile.reset();
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
       setIsLoading(false);
@@ -123,6 +133,7 @@ export function SignUpForm({
                   onChange={(e) => setRepeatPassword(e.target.value)}
                 />
               </div>
+              <TurnstileField state={turnstile} />
               {error && <p className="text-sm text-red-500">{error}</p>}
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? "Creating an account..." : "Sign up"}
