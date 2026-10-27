@@ -5,9 +5,11 @@ import { useRouter } from "next/navigation";
 import { APIProvider } from "@vis.gl/react-google-maps";
 
 import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { CtaButton } from "@/components/ui/cta-button";
+import { Field } from "@/components/ui/field";
+import { MapPlaceholder } from "@/components/ui/map-placeholder";
+import { SegmentedButtons } from "@/components/ui/segmented-buttons";
+import { Stepper } from "@/components/ui/stepper";
 import {
   PlaceAutocompleteField,
   type PlaceAutocompleteValue,
@@ -89,96 +91,107 @@ export function HangoutForm() {
 
   if (!apiKey) {
     return (
-      <p className="text-sm text-red-500">
-        Missing NEXT_PUBLIC_GOOGLE_MAPS_API_KEY — location fields can&apos;t
+      <p className="font-grotesk text-sm lowercase text-[#8a1c1c]">
+        missing NEXT_PUBLIC_GOOGLE_MAPS_API_KEY — location fields can&apos;t
         load.
       </p>
     );
   }
 
+  const labelClass =
+    "mb-1.5 block font-grotesk text-[11px] font-bold uppercase tracking-[0.12em] text-ink";
+
   return (
     <APIProvider apiKey={apiKey}>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-        <div className="grid gap-2">
-          <Label htmlFor="name">Name</Label>
-          <Input
+      <div className="flex flex-1 flex-col gap-10 md:flex-row">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-2.5 md:w-[632px] md:flex-none md:gap-3.5"
+        >
+          <Field
             id="name"
-            type="text"
+            label="plan name"
             required
+            placeholder="e.g. saturday downtown crawl"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </div>
 
-        <PlaceAutocompleteField
-          id="start-location"
-          label="Start location"
-          required
-          value={startLocation}
-          onChange={setStartLocation}
-        />
+          <div className="grid gap-2.5 md:grid-cols-2 md:gap-5">
+            <Field
+              id="start-time"
+              label="start time"
+              type="datetime-local"
+              required
+              value={startTime}
+              onChange={(e) => setStartTime(e.target.value)}
+            />
+            <Field
+              id="end-time"
+              label="end time (optional)"
+              type="datetime-local"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
+            />
+          </div>
 
-        <PlaceAutocompleteField
-          id="end-location"
-          label="End location"
-          value={endLocation}
-          onChange={setEndLocation}
-        />
-
-        <div className="grid gap-2">
-          <Label htmlFor="start-time">Start time</Label>
-          <Input
-            id="start-time"
-            type="datetime-local"
+          <PlaceAutocompleteField
+            id="start-location"
+            label="start location"
+            variant="field"
+            placeholder="search a starting point"
             required
-            value={startTime}
-            onChange={(e) => setStartTime(e.target.value)}
+            value={startLocation}
+            onChange={setStartLocation}
           />
-        </div>
 
-        <div className="grid gap-2">
-          <Label htmlFor="end-time">End time</Label>
-          <Input
-            id="end-time"
-            type="datetime-local"
-            value={endTime}
-            onChange={(e) => setEndTime(e.target.value)}
+          <PlaceAutocompleteField
+            id="end-location"
+            label="end location (optional)"
+            variant="field"
+            placeholder="search an ending point"
+            value={endLocation}
+            onChange={setEndLocation}
           />
-        </div>
 
-        <div className="grid gap-2">
-          <Label htmlFor="transportation-mode">Transportation mode</Label>
-          <select
-            id="transportation-mode"
-            className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm"
-            value={transportationMode}
-            onChange={(e) =>
-              setTransportationMode(e.target.value as TransportationMode)
-            }
-          >
-            <option value="driving">Driving</option>
-            <option value="walking">Walking</option>
-            <option value="transit">Transit</option>
-          </select>
-        </div>
+          <div>
+            <span className={labelClass}>transportation mode</span>
+            <SegmentedButtons<TransportationMode>
+              aria-label="transportation mode"
+              value={transportationMode}
+              onChange={setTransportationMode}
+              options={[
+                { value: "driving", label: "Driving" },
+                { value: "walking", label: "Walking" },
+                { value: "transit", label: "Transit" },
+              ]}
+            />
+          </div>
 
-        <div className="grid gap-2">
-          <Label htmlFor="buffer-minutes">Buffer minutes</Label>
-          <Input
-            id="buffer-minutes"
-            type="number"
-            min={0}
-            value={bufferMinutes}
-            onChange={(e) => setBufferMinutes(Number(e.target.value))}
-          />
-        </div>
+          <div>
+            <span className={labelClass}>buffer between stops</span>
+            <Stepper
+              value={bufferMinutes}
+              onChange={setBufferMinutes}
+              min={0}
+              step={5}
+              unit="min"
+            />
+          </div>
 
-        {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && (
+            <p role="alert" className="font-grotesk text-sm lowercase text-[#8a1c1c]">
+              {error}
+            </p>
+          )}
 
-        <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Creating hangout..." : "Create hangout"}
-        </Button>
-      </form>
+          <CtaButton type="submit" disabled={isLoading} className="mt-1">
+            {isLoading ? "creating hangout…" : "create hangout"}
+          </CtaButton>
+        </form>
+
+        <MapPlaceholder label="route preview appears here" />
+      </div>
     </APIProvider>
   );
 }

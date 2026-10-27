@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 
 import { createClient } from "@/lib/supabase/server";
 import { HangoutForm } from "@/components/hangout-form";
+import { SectionPage } from "@/components/ui/section-page";
 
 async function NewHangoutContent() {
   const supabase = await createClient();
@@ -19,20 +20,20 @@ async function NewHangoutContent() {
     redirect("/dashboard");
   }
 
-  return (
-    <div className="flex-1 w-full flex flex-col gap-8 max-w-2xl">
-      <div className="flex flex-col gap-2">
-        <h1 className="font-bold text-2xl">Plan a new hangout</h1>
-      </div>
-      <HangoutForm />
-    </div>
-  );
+  return <HangoutForm />;
 }
 
 export default function NewHangoutPage() {
   return (
-    <Suspense>
-      <NewHangoutContent />
-    </Suspense>
+    <SectionPage
+      label="create a plan"
+      color="#aebbd2"
+      texture="/textures/texture-brown.png"
+      textureOpacity={0.2}
+    >
+      <Suspense>
+        <NewHangoutContent />
+      </Suspense>
+    </SectionPage>
   );
 }

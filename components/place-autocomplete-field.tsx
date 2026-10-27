@@ -30,8 +30,8 @@ export function PlaceAutocompleteField({
   id: string;
   label: string;
   required?: boolean;
-  /** "room" = the folder-style input (label becomes screen-reader only). */
-  variant?: "default" | "room";
+  /** "room" = folder-style input, label screen-reader only; "field" = folder-style input with a visible uppercase label. */
+  variant?: "default" | "room" | "field";
   placeholder?: string;
   value: PlaceAutocompleteValue;
   onChange: (value: PlaceAutocompleteValue) => void;
@@ -85,8 +85,21 @@ export function PlaceAutocompleteField({
   }, [autocomplete, onChange]);
 
   return (
-    <div className={cn("grid gap-2", variant === "room" && "min-w-0 flex-1")}>
-      <Label htmlFor={id} className={cn(variant === "room" && "sr-only")}>
+    <div
+      className={cn(
+        "grid",
+        variant === "field" ? "gap-1.5" : "gap-2",
+        variant === "room" && "min-w-0 flex-1",
+      )}
+    >
+      <Label
+        htmlFor={id}
+        className={cn(
+          variant === "room" && "sr-only",
+          variant === "field" &&
+            "mb-0 text-[11px] font-bold uppercase leading-normal tracking-[0.12em] text-ink",
+        )}
+      >
         {label}
       </Label>
       <Input
@@ -99,6 +112,8 @@ export function PlaceAutocompleteField({
         className={cn(
           variant === "room" &&
             cn(fieldInputClass, "h-auto rounded-none px-3.5 shadow-none"),
+          variant === "field" &&
+            cn(fieldInputClass, "h-auto rounded-none shadow-none md:text-[15px]"),
         )}
         onChange={() => {
           // Typing without picking a fresh suggestion invalidates whatever
