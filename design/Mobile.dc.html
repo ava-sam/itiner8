@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Dashboard (Mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face {
+    font-family: 'Bootzy TM';
+    src: url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  body { margin: 0; background: #e7e8e4; }
+  .bg-photo {
+    background-image: url(/_blob/4da3b25ed6ecd615f355ba729d70c61a);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .label-grotesk {
+    font-family: 'Alte Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+  }
+  .title-display {
+    font-family: 'Bootzy TM', 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+  }
+  .tab-label {
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    -webkit-text-stroke: 0.4px currentColor;
+    color: #18202b;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-45%);
+    text-align: center;
+  }
+  .folder { all: unset; cursor: pointer; display: block; position: absolute; transition: transform 160ms ease; }
+  .folder:hover, .folder:focus-visible { transform: translateY(-8px); }
+  .folder:focus-visible .folder-band { outline: 3px solid #18202b; outline-offset: -6px; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; color: #18202b; background-color: #e7e8e4;">
+
+  <!-- header -->
+  <div class="title-display" style="position:absolute; top:18px; left:20px; font-size:34px; letter-spacing:calc(0.01em + 1px); line-height:1;">
+    ITINER8
+  </div>
+  <div class="label-grotesk" style="position:absolute; top:62px; left:20px; font-weight:400; font-size:10px; letter-spacing:calc(0.08em - 1px); color:#18202b;">
+    WELCOME BACK, {{usernameUpper}}
+  </div>
+  <div style="position:absolute; top:96px; left:20px; right:20px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <!-- view plans -->
+  <button type="button" class="folder" style="left:20px; right:20px; top:124px; z-index:1;" onClick="{{goView}}">
+    <div style="position:absolute; left:0; top:0; width:180px; height:48px;">
+      <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+        <defs><clipPath id="mclip-view"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+        <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#d3dff2" stroke="none"></path>
+        <image href="/_blob/789edfde02fbcf9388665e3592795353" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#mclip-view)" style="mix-blend-mode:multiply; opacity:0.45;"></image>
+        <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+      </svg>
+      <span class="label-grotesk tab-label">view plans</span>
+    </div>
+    <div class="folder-band" style="position:absolute; left:0; right:0; top:47px; height:114px; border:3px solid #18202b; border-bottom:none; overflow:hidden; background:#d3dff2;">
+      <div style="position:absolute; inset:0; background-image:url(/_blob/789edfde02fbcf9388665e3592795353); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.45; pointer-events:none;"></div>
+    </div>
+  </button>
+
+  <!-- join a plan -->
+  <button type="button" class="folder" style="left:20px; right:20px; top:213px; z-index:2;" onClick="{{goJoin}}">
+    <div style="position:absolute; left:85px; top:0; width:180px; height:48px;">
+      <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+        <defs><clipPath id="mclip-join"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+        <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#b1b2ae" stroke="none"></path>
+        <image href="/_blob/abb225e5637fe5a093dd2b5d858efc97" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#mclip-join)" style="mix-blend-mode:multiply; opacity:0.5;"></image>
+        <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+      </svg>
+      <span class="label-grotesk tab-label">join a plan</span>
+    </div>
+    <div class="folder-band" style="position:absolute; left:0; right:0; top:47px; height:114px; border:3px solid #18202b; border-bottom:none; overflow:hidden; background:#b1b2ae;">
+      <div style="position:absolute; inset:0; background-image:url(/_blob/abb225e5637fe5a093dd2b5d858efc97); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.5; pointer-events:none;"></div>
+    </div>
+  </button>
+
+  <!-- create a plan (dominant) -->
+  <button type="button" class="folder" style="left:20px; right:20px; top:302px; bottom:20px; z-index:3;" onClick="{{goCreate}}">
+    <div style="position:absolute; left:170px; top:0; width:180px; height:48px;">
+      <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+        <defs><clipPath id="mclip-create"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+        <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#93a4c1" stroke="none"></path>
+        <image href="/_blob/7d9578fff3a6cef375d680cad3b1e797" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#mclip-create)" style="mix-blend-mode:multiply; opacity:0.22;"></image>
+        <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+      </svg>
+      <span class="label-grotesk tab-label">create a plan</span>
+    </div>
+    <div class="folder-band" style="position:absolute; left:0; right:0; top:47px; bottom:-20px; border:3px solid #18202b; overflow:hidden; background:#93a4c1;">
+      <div style="position:absolute; inset:0; background-image:url(/_blob/7d9578fff3a6cef375d680cad3b1e797); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.22; pointer-events:none;"></div>
+    </div>
+  </button>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return {
+      usernameUpper: username.toUpperCase(),
+      goCreate: () => {},
+      goView: () => {},
+      goJoin: () => {}
+    };
+  }
+}
+</script>
+</body>
+</html>

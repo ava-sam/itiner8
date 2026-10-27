@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Join a Plan</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face {
+    font-family: 'Bootzy TM';
+    src: url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  body { margin: 0; background: #e7e8e4; }
+  .bg-photo {
+    background-image: url(/_blob/4da3b25ed6ecd615f355ba729d70c61a);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .label-grotesk {
+    font-family: 'Alte Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+  }
+  .title-display {
+    font-family: 'Bootzy TM', 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+  }
+  .field-label {
+    font-family: 'Alte Haas Grotesk', sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    color: #18202b;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .field-input {
+    font-family: 'Alte Haas Grotesk', sans-serif;
+    font-size: 16px;
+    color: #18202b;
+    background: #fbfaf6;
+    border: 2px solid #18202b;
+    padding: 12px 14px;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    text-transform: lowercase;
+  }
+  .field-input::placeholder { color: #6b7078; text-transform: lowercase; }
+  .seg-btn { all: unset; cursor: pointer; box-sizing:border-box; font-family:'Alte Haas Grotesk', sans-serif; text-transform:uppercase; font-size:13px; font-weight:700; letter-spacing:0.06em; color:#18202b; border:2px solid #18202b; padding:12px 0; text-align:center; flex:1; background:#fbfaf6; }
+  .seg-btn.active { background:#5d605b; color:#e7e8e4; }
+  .cta-btn { all:unset; cursor:pointer; box-sizing:border-box; display:flex; align-items:center; justify-content:center; background:#18202b; color:#e7e8e4; font-family:'Alte Haas Grotesk', sans-serif; text-transform:uppercase; font-size:15px; font-weight:700; letter-spacing:0.1em; border:2px solid #18202b; padding:18px 0; transition:opacity 140ms ease; }
+  .cta-btn:hover { opacity:0.85; }
+  .back-link { all:unset; cursor:pointer; font-family:'Alte Haas Grotesk', sans-serif; text-transform:uppercase; font-size:12px; letter-spacing:0.1em; font-weight:700; color:#18202b; }
+  .back-link:hover { text-decoration:underline; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width: 1440px; height: 900px; box-sizing: border-box; position: relative; overflow: hidden; color: #18202b; background-color: #e7e8e4;">
+
+  <!-- header -->
+  <div class="title-display" style="position:absolute; top:26px; left:64px; font-size:68px; letter-spacing:calc(0.01em + 2px); line-height:1;">
+    ITINER8
+  </div>
+  <div class="label-grotesk" style="position:absolute; top:56px; right:64px; font-weight:400; font-size:18px; letter-spacing:calc(0.1em - 2px); color:#18202b;">
+    WELCOME BACK, {{usernameUpper}}
+  </div>
+  <div style="position:absolute; top:112px; left:64px; right:64px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <!-- back link -->
+  <button type="button" class="back-link" style="position:absolute; top:130px; left:64px;" onClick="{{goBack}}">&larr; back to dashboard</button>
+
+  <!-- section tab, attached to the sheet below -->
+  <div style="position:absolute; left:64px; top:158px; width:230px; height:48px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#b1b2ae" stroke="none"></path>
+      <image href="/_blob/abb225e5637fe5a093dd2b5d858efc97" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.3;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:17px; letter-spacing:0.08em; font-weight:700; -webkit-text-stroke:0.5px currentColor;">join a plan</span>
+  </div>
+
+  <!-- the open folder sheet: everything below lives ON this page -->
+  <div style="position:absolute; left:64px; right:64px; top:205px; bottom:40px; z-index:1; border:3px solid #18202b; background:#b1b2ae; overflow:hidden; box-sizing:border-box; padding:40px; display:flex; gap:40px;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/abb225e5637fe5a093dd2b5d858efc97); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.3; pointer-events:none;"></div>
+
+    <!-- form column -->
+    <div style="position:relative; flex:0 0 632px;">
+
+      <!-- invite code -->
+      <div style="margin-bottom:14px;">
+        <label class="field-label">invite code</label>
+        <input class="field-input" type="text" placeholder="enter your invite code"/>
+      </div>
+
+      <!-- join as -->
+      <div style="margin-bottom:14px;">
+        <label class="field-label">join as</label>
+        <div style="display:flex; gap:12px;">
+          <button type="button" class="seg-btn active">Guest</button>
+          <button type="button" class="seg-btn">My account</button>
+        </div>
+      </div>
+
+      <!-- display name (required for guests) -->
+      <div style="margin-bottom:14px;">
+        <label class="field-label">display name (required)</label>
+        <input class="field-input" type="text" placeholder="what should your friends call you?" value="{{displayName}}"/>
+      </div>
+
+      <!-- human check -->
+      <div style="margin-bottom:18px;">
+        <label class="field-label">quick check</label>
+        <div style="display:flex; align-items:center; gap:14px; background:#fbfaf6; border:2px solid #18202b; padding:14px;">
+          <div style="width:24px; height:24px; box-sizing:border-box; border:2px solid #18202b; background:#fbfaf6;"></div>
+          <div class="label-grotesk" style="font-size:13px; font-weight:700; letter-spacing:0.08em;">i am human</div>
+        </div>
+      </div>
+
+      <button type="button" class="cta-btn" style="width:280px;" onClick="{{joinPlan}}">join hangout</button>
+
+    </div>
+
+    <!-- preview panel: plain inset resting on the sheet -->
+    <div style="position:relative; flex:1; border:2px solid #18202b; background:rgba(251,250,246,0.55); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;">
+      <svg width="56" height="56" viewBox="0 0 56 56" fill="none" stroke="#18202b" stroke-width="2">
+        <circle cx="20" cy="20" r="8"/>
+        <path d="M6 46 c2-10 8-14 14-14 s12 4 14 14"/>
+        <circle cx="38" cy="24" r="6"/>
+        <path d="M32 44 c1-6 4-9 8-9 s7 3 8 9"/>
+      </svg>
+      <div class="label-grotesk" style="font-size:13px; letter-spacing:0.14em; font-weight:700; color:#18202b;">plan details appear here</div>
+    </div>
+
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"displayName":{"editor":"text","default":""},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return {
+      usernameUpper: username.toUpperCase(),
+      displayName: this.props.displayName ?? '',
+      goBack: () => {},
+      joinPlan: () => {}
+    };
+  }
+}
+</script>
+</body>
+</html>

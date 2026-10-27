@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — View Plans (Mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face {
+    font-family: 'Bootzy TM';
+    src: url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  body { margin: 0; background: #e7e8e4; }
+  .bg-photo {
+    background-image: url(/_blob/4da3b25ed6ecd615f355ba729d70c61a);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .label-grotesk {
+    font-family: 'Alte Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+  }
+  .title-display {
+    font-family: 'Bootzy TM', 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+  }
+  .back-link { all: unset; cursor: pointer; display: flex; align-items: center; height: 28px; font-family: 'Alte Haas Grotesk', sans-serif; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #18202b; }
+  .new-btn { all: unset; cursor: pointer; box-sizing: border-box; font-family: 'Alte Haas Grotesk', sans-serif; text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: #e7e8e4; background: #18202b; border: 2px solid #18202b; padding: 12px 14px; }
+  .plan-card { all: unset; cursor: pointer; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; box-sizing: border-box; width: 100%; background: #fbfaf6; border: 2px solid #18202b; padding: 14px 16px; }
+  .plan-name { font-family: 'Alte Haas Grotesk', sans-serif; font-size: 16px; font-weight: 700; text-transform: lowercase; color: #18202b; }
+  .plan-date { font-family: 'Alte Haas Grotesk', sans-serif; font-size: 12px; text-transform: lowercase; color: #4a5158; margin-top: 3px; }
+  .status-pill { font-family: 'Alte Haas Grotesk', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 5px 12px; border: 1.5px solid #18202b; white-space: nowrap; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; color: #18202b; background-color: #e7e8e4;">
+
+  <!-- header -->
+  <div class="title-display" style="position:absolute; top:18px; left:20px; font-size:34px; letter-spacing:calc(0.01em + 1px); line-height:1;">ITINER8</div>
+  <div class="label-grotesk" style="position:absolute; top:62px; left:20px; font-weight:400; font-size:10px; letter-spacing:calc(0.08em - 1px); color:#18202b;">WELCOME BACK, {{usernameUpper}}</div>
+  <div style="position:absolute; top:96px; left:20px; right:20px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <button type="button" class="back-link" style="position:absolute; top:102px; left:20px;" onClick="{{goBack}}">&larr; back to dashboard</button>
+
+  <!-- section tab -->
+  <div style="position:absolute; left:20px; top:132px; width:170px; height:42px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#d3dff2" stroke="none"></path>
+      <image href="/_blob/789edfde02fbcf9388665e3592795353" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.2;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:14px; letter-spacing:0.06em; font-weight:700; -webkit-text-stroke:0.4px currentColor;">view plans</span>
+  </div>
+
+  <!-- the open folder sheet -->
+  <div style="position:absolute; left:20px; right:20px; top:173px; bottom:20px; z-index:1; border:3px solid #18202b; background:#d3dff2; overflow:hidden; box-sizing:border-box; padding:20px;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/789edfde02fbcf9388665e3592795353); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.2; pointer-events:none;"></div>
+
+    <!-- list header -->
+    <div style="position:relative; display:flex; align-items:center; justify-content:space-between; margin-bottom:16px;">
+      <div class="label-grotesk" style="font-size:12px; letter-spacing:0.12em; font-weight:700;">4 hangouts</div>
+      <button type="button" class="new-btn" onClick="{{goCreate}}">+ new plan</button>
+    </div>
+
+    <!-- plan cards -->
+    <div style="position:relative; display:flex; flex-direction:column; gap:12px;">
+
+      <button type="button" class="plan-card" onClick="{{openPlan}}">
+        <div class="status-pill" style="background:#d3dff2;">generated</div>
+        <div>
+          <div class="plan-name">saturday downtown crawl</div>
+          <div class="plan-date">sat, oct 4 · 2:00 pm · 6 stops</div>
+        </div>
+      </button>
+
+      <button type="button" class="plan-card" onClick="{{openPlan}}">
+        <div class="status-pill" style="background:#b1b2ae;">planning</div>
+        <div>
+          <div class="plan-name">birthday dinner for mia</div>
+          <div class="plan-date">sat, oct 11 · 7:00 pm · 3 stops</div>
+        </div>
+      </button>
+
+      <button type="button" class="plan-card" onClick="{{openPlan}}">
+        <div class="status-pill" style="background:#93a4c1;">finalized</div>
+        <div>
+          <div class="plan-name">museum + brunch</div>
+          <div class="plan-date">sun, sep 28 · 11:00 am · 4 stops</div>
+        </div>
+      </button>
+
+      <button type="button" class="plan-card" onClick="{{openPlan}}">
+        <div class="status-pill" style="background:#18202b; color:#e7e8e4; border-color:#18202b;">completed</div>
+        <div>
+          <div class="plan-name">beach day hangout</div>
+          <div class="plan-date">sun, sep 14 · 12:00 pm · 5 stops</div>
+        </div>
+      </button>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return {
+      usernameUpper: username.toUpperCase(),
+      goBack: () => {},
+      goCreate: () => {},
+      openPlan: () => {}
+    };
+  }
+}
+</script>
+</body>
+</html>

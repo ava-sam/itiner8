@@ -10,7 +10,20 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        display: ["Bootzy TM", "Arial Narrow", "sans-serif"],
+        grotesk: ["Alte Haas Grotesk", "Helvetica Neue", "Arial", "sans-serif"],
+      },
       colors: {
+        "light-blue": "#d3dff2",
+        grey: "#b1b2ae",
+        blue: "#93a4c1",
+        ink: "#18202b",
+        bg: "#e7e8e4",
+        sheet: "#aebbd2",
+        "sel-blue": "#3d5580",
+        "sel-grey": "#5d605b",
+        "input-white": "#fbfaf6",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

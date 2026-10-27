@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ITINER8 — Create a Plan (Mobile)</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+  @font-face {
+    font-family: 'Bootzy TM';
+    src: url(/_blob/afcec1789354dbbaae01f4e3833c4a61) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/0e03efa64b23e1152a5a6c722558da45) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: 'Alte Haas Grotesk';
+    src: url(/_blob/7041714b6f55833bdc6f4e2ea9ffa4a6) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  body { margin: 0; background: #e7e8e4; }
+  .bg-photo {
+    background-image: url(/_blob/4da3b25ed6ecd615f355ba729d70c61a);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .label-grotesk {
+    font-family: 'Alte Haas Grotesk', 'Helvetica Neue', Arial, sans-serif;
+    text-transform: uppercase;
+  }
+  .title-display {
+    font-family: 'Bootzy TM', 'Arial Narrow', sans-serif;
+    text-transform: uppercase;
+  }
+  .back-link { all: unset; cursor: pointer; display: flex; align-items: center; height: 28px; font-family: 'Alte Haas Grotesk', sans-serif; text-transform: uppercase; font-size: 11px; letter-spacing: 0.1em; font-weight: 700; color: #18202b; }
+  .field-label { font-family: 'Alte Haas Grotesk', sans-serif; text-transform: uppercase; font-size: 11px; letter-spacing: 0.12em; font-weight: 700; color: #18202b; display: block; margin-bottom: 6px; }
+  .field-input { font-family: 'Alte Haas Grotesk', sans-serif; font-size: 15px; color: #18202b; background: #fbfaf6; border: 2px solid #18202b; padding: 12px; width: 100%; box-sizing: border-box; outline: none; text-transform: lowercase; }
+  .field-input::placeholder { color: #6b7078; text-transform: lowercase; }
+  .seg-btn { all: unset; cursor: pointer; box-sizing: border-box; font-family: 'Alte Haas Grotesk', sans-serif; text-transform: uppercase; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; color: #18202b; border: 2px solid #18202b; padding: 14px 0; text-align: center; flex: 1; background: #fbfaf6; }
+  .seg-btn.active { background: #3d5580; color: #e7e8e4; }
+  .stepper-btn { all: unset; cursor: pointer; width: 44px; height: 44px; box-sizing: border-box; border: 2px solid #18202b; display: flex; align-items: center; justify-content: center; font-size: 20px; font-family: 'Alte Haas Grotesk', sans-serif; color: #18202b; background: #fbfaf6; }
+  .cta-btn { all: unset; cursor: pointer; box-sizing: border-box; display: flex; align-items: center; justify-content: center; width: 100%; background: #18202b; color: #e7e8e4; font-family: 'Alte Haas Grotesk', sans-serif; text-transform: uppercase; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; border: 2px solid #18202b; padding: 16px 0; }
+</style>
+</helmet>
+
+<div class="bg-photo" style="width: 390px; height: 844px; box-sizing: border-box; position: relative; overflow: hidden; color: #18202b; background-color: #e7e8e4;">
+
+  <!-- header -->
+  <div class="title-display" style="position:absolute; top:18px; left:20px; font-size:34px; letter-spacing:calc(0.01em + 1px); line-height:1;">ITINER8</div>
+  <div class="label-grotesk" style="position:absolute; top:62px; left:20px; font-weight:400; font-size:10px; letter-spacing:calc(0.08em - 1px); color:#18202b;">WELCOME BACK, {{usernameUpper}}</div>
+  <div style="position:absolute; top:96px; left:20px; right:20px; height:1px; background:rgba(24,32,43,0.28);"></div>
+
+  <button type="button" class="back-link" style="position:absolute; top:102px; left:20px;" onClick="{{goBack}}">&larr; back to dashboard</button>
+
+  <!-- section tab -->
+  <div style="position:absolute; left:20px; top:132px; width:170px; height:42px; z-index:2;">
+    <svg viewBox="0 0 300 60" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+      <defs><clipPath id="clip-tag"><path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z"></path></clipPath></defs>
+      <path d="M27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60 L0,60 Z" fill="#aebbd2" stroke="none"></path>
+      <image href="/_blob/7d9578fff3a6cef375d680cad3b1e797" x="0" y="0" width="300" height="60" preserveAspectRatio="xMidYMid slice" clip-path="url(#clip-tag)" style="mix-blend-mode:multiply; opacity:0.2;"></image>
+      <path d="M0,60 L27.1,12.2 Q34,0 48,0 L252,0 Q266,0 272.9,12.2 L300,60" fill="none" stroke="#18202b" stroke-width="3"></path>
+    </svg>
+    <span class="label-grotesk" style="position:absolute; left:0; right:0; top:50%; transform:translateY(-45%); text-align:center; font-size:14px; letter-spacing:0.06em; font-weight:700; -webkit-text-stroke:0.4px currentColor;">create a plan</span>
+  </div>
+
+  <!-- the open folder sheet -->
+  <div style="position:absolute; left:20px; right:20px; top:173px; bottom:20px; z-index:1; border:3px solid #18202b; background:#aebbd2; overflow:hidden; box-sizing:border-box; padding:20px;">
+    <div style="position:absolute; inset:0; background-image:url(/_blob/7d9578fff3a6cef375d680cad3b1e797); background-size:cover; background-position:center; mix-blend-mode:multiply; opacity:0.2; pointer-events:none;"></div>
+
+    <div style="position:relative;">
+
+      <div style="margin-bottom:10px;">
+        <label class="field-label">plan name</label>
+        <input class="field-input" type="text" placeholder="e.g. Saturday downtown crawl" value="{{planName}}">
+      </div>
+
+      <div style="margin-bottom:10px;">
+        <label class="field-label">start time</label>
+        <input class="field-input" type="text" placeholder="Sat, Oct 4 · 2:00 PM">
+      </div>
+
+      <div style="margin-bottom:10px;">
+        <label class="field-label">end time (optional)</label>
+        <input class="field-input" type="text" placeholder="Sat, Oct 4 · 8:00 PM">
+      </div>
+
+      <div style="margin-bottom:10px;">
+        <label class="field-label">start location</label>
+        <input class="field-input" type="text" placeholder="Search a starting point">
+      </div>
+
+      <div style="margin-bottom:10px;">
+        <label class="field-label">end location (optional)</label>
+        <input class="field-input" type="text" placeholder="Search an ending point">
+      </div>
+
+      <div style="margin-bottom:10px;">
+        <label class="field-label">transportation mode</label>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="seg-btn active">Driving</button>
+          <button type="button" class="seg-btn">Walking</button>
+          <button type="button" class="seg-btn">Transit</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label class="field-label">buffer between stops</label>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button type="button" class="stepper-btn">−</button>
+          <div class="label-grotesk" style="font-size:15px; font-weight:700; min-width:64px; text-align:center;">10 min</div>
+          <button type="button" class="stepper-btn">+</button>
+        </div>
+      </div>
+
+      <button type="button" class="cta-btn" onClick="{{createPlan}}">create hangout</button>
+
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"username":{"editor":"text","default":"Ava"},"planName":{"editor":"text","default":""},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const username = this.props.username ?? 'Ava';
+    return {
+      usernameUpper: username.toUpperCase(),
+      planName: this.props.planName ?? '',
+      goBack: () => {},
+      createPlan: () => {}
+    };
+  }
+}
+</script>
+</body>
+</html>
