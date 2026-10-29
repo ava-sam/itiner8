@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { cn } from "@/lib/utils";
@@ -28,6 +29,7 @@ export const headerSecondary = cn(buttonBase, "bg-input-white text-ink");
  */
 export function SiteHeaderNav({ initial }: { initial: HeaderAuthState }) {
   const [auth, setAuth] = useState(initial);
+  const pathname = usePathname();
 
   useEffect(() => {
     const { data } = createClient().auth.onAuthStateChange((event, session) => {
@@ -73,6 +75,8 @@ export function SiteHeaderNav({ initial }: { initial: HeaderAuthState }) {
   }, [signedIn, userId, displayName]);
 
   if (!auth.signedIn) {
+    // The home page has its own CREATE AN ACCOUNT / LOG IN buttons.
+    if (pathname === "/") return null;
     return (
       <div className="absolute right-5 top-4 flex gap-2 md:right-16 md:top-[38px]">
         <Link href="/auth/login" className={headerSecondary}>
