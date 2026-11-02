@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { HangoutForm } from "@/components/hangout-form";
 import { SectionPage } from "@/components/ui/section-page";
+import type { Metadata } from "next";
 
 async function NewHangoutContent() {
   const supabase = await createClient();
@@ -22,6 +23,8 @@ async function NewHangoutContent() {
 
   return <HangoutForm />;
 }
+
+export const metadata: Metadata = { title: "Create a plan" };
 
 export default function NewHangoutPage() {
   return (

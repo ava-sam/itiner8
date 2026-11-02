@@ -1,6 +1,9 @@
 import { Suspense } from "react";
 import { JoinForm } from "@/components/join-form";
 import { SectionPage } from "@/components/ui/section-page";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = { title: "Join a plan" };
 
 export default function JoinPage() {
   return (

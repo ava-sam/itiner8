@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { createClient } from "@/lib/supabase/server";
 import { DashboardFolders } from "@/components/ui/dashboard-folders";
+import type { Metadata } from "next";
 
 async function Folders() {
   const supabase = await createClient();
@@ -22,6 +23,8 @@ async function Folders() {
     />
   );
 }
+
+export const metadata: Metadata = { title: "Dashboard" };
 
 export default function ProtectedPage() {
   return (
